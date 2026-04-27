@@ -59,7 +59,10 @@ const initDB = () => {
   }
 };
 
-initDB();
+// Only seed if not on Vercel or if file exists
+if (process.env.NODE_ENV !== 'production' || fs.existsSync(DB_FILE)) {
+  initDB();
+}
 
 // Basic Route
 app.get('/api', (req, res) => {
@@ -87,7 +90,9 @@ app.post('/api/posts', (req, res) => {
       createdAt: new Date().toISOString()
     };
     posts.unshift(newPost);
-    fs.writeFileSync(DB_FILE, JSON.stringify(posts, null, 2));
+    if (process.env.NODE_ENV !== 'production') {
+      fs.writeFileSync(DB_FILE, JSON.stringify(posts, null, 2));
+    }
     res.status(201).json(newPost);
   } catch (err) {
     res.status(400).json({ message: 'Error saving post' });

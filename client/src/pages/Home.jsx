@@ -95,7 +95,7 @@ const Home = () => {
         {loading ? (
           <p style={{ textAlign: 'center', color: '#94a3b8' }}>Feed load ho raha hai...</p>
         ) : (
-          posts.map(post => (
+          Array.isArray(posts) && posts.map(post => (
             <PostCard key={post.id || post._id} post={post} />
           ))
         )}

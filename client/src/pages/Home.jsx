@@ -14,7 +14,7 @@ const Home = () => {
 
   const fetchPosts = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/posts');
+      const res = await axios.get('/api/posts');
       setPosts(res.data);
       setLoading(false);
     } catch (err) {
@@ -25,7 +25,7 @@ const Home = () => {
 
   useEffect(() => {
     // Check Server Status
-    axios.get('http://localhost:5000/')
+    axios.get('/api')
       .then(res => setServerStatus(res.data))
       .catch(err => setServerStatus('Server Offline ⚠️'));
 
@@ -44,7 +44,7 @@ const Home = () => {
     };
 
     try {
-      await axios.post('http://localhost:5000/api/posts', postData);
+      await axios.post('/api/posts', postData);
       setNewPostContent('');
       fetchPosts(); // Refresh feed
     } catch (err) {

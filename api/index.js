@@ -62,7 +62,7 @@ const initDB = () => {
 initDB();
 
 // Basic Route
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.send('MiniConnect API is running smoothly 🚀 (File-based DB)');
 });
 
@@ -94,6 +94,10 @@ app.post('/api/posts', (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+export default app;
+
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
